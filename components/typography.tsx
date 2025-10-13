@@ -21,10 +21,7 @@ type TextProps = Children & {
 function TypographyH1({ children, className }: Children) {
   return (
     <h1
-      className={cn(
-        "text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none",
-        className,
-      )}
+      className={cn("text-4xl font-bold tracking-tight sm:text-7xl", className)}
     >
       {children}
     </h1>
@@ -92,7 +89,7 @@ function TypographyInlineCode({ children, className }: Children) {
 
 function TypographyLead({ children, className }: Children) {
   return (
-    <p className={cn("text-muted-foreground text-sm sm:text-xl", className)}>
+    <p className={cn("text-muted-foreground text-lg sm:text-3xl", className)}>
       {children}
     </p>
   );
