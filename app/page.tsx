@@ -1,9 +1,44 @@
+import { Globe, Shield, Users, Zap } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Text } from "@/components/typography";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default function Home() {
+  const features = [
+    {
+      icon: Globe,
+      title: "Cross-Chain Transfers",
+      description:
+        "Seamlessly transfer assets across different blockchains without worrying about the technical details.",
+    },
+    {
+      icon: Shield,
+      title: "Private Transactions",
+      description:
+        "Ensure confidentiality with private transactions that protect sensitive business information.",
+    },
+    {
+      icon: Zap,
+      title: "Sponsored Transactions",
+      description:
+        "Cover transaction fees for your users to provide a frictionless experience.",
+    },
+    {
+      icon: Users,
+      title: "Easy Onboarding",
+      description:
+        "Simplified onboarding flows tailored for various African countries and regulations.",
+    },
+  ];
+
   return (
     <div className="w-full mx-auto space-y-4">
       <header className="w-full flex justify-between items-center px-8 py-8 text-primary">
@@ -42,9 +77,9 @@ export default function Home() {
       <main className="space-y-8">
         <section
           id="hero"
-          className="space-y-12 py-12 max-w-2xl mx-auto text-center"
+          className="space-y-8 py-12 max-w-2xl mx-auto text-center"
         >
-          <Text variant="h1">
+          <Text variant="h1" className="sm:text-7xl font-bold">
             Your Gateway to the{" "}
             <span className="text-primary">African Market</span>
           </Text>
@@ -105,7 +140,7 @@ export default function Home() {
               />
             </div>
 
-            <div className="rounded-2xl lg:-translate-x-12 ">
+            <div className="shadown-2xl lg:-translate-x-12 ">
               <Image
                 src="/subhero-person.png"
                 alt={"Mitter Asset"}
@@ -117,7 +152,50 @@ export default function Home() {
           </div>
         </section>
 
-        <div id="details"></div>
+        <div id="details" className="space-y-12 p-8">
+          <div className="space-y-2">
+            <Text variant="h2" className="text-center border-none">
+              How Mitter Works
+            </Text>
+
+            <Text variant="small" className="text-center">
+              We abstract away all the complexities so you can focus on your
+              core business
+            </Text>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature) => {
+              const Icon = feature.icon;
+
+              return (
+                <Card
+                  key={`feature-card-${feature.title}`}
+                  className="shadow-xl hover:shadow-2xl transition-shadow"
+                >
+                  <CardHeader>
+                    <div
+                      className={`w-12 h-12 rounded-4xl bg-cyan-50 flex items-center justify-center`}
+                    >
+                      <Icon className={`w-6 h-6 text-blue-500`} />
+                    </div>
+                    <CardTitle>
+                      <Text variant="lead" className="text-black">
+                        {feature.title}
+                      </Text>
+                    </CardTitle>
+                  </CardHeader>
+
+                  <CardContent>
+                    <CardDescription>
+                      <Text variant="muted">{feature.description}</Text>
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
         <div id="paymitter"></div>
         <div id="cta"></div>
       </main>

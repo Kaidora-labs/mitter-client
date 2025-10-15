@@ -21,7 +21,10 @@ type TextProps = Children & {
 function TypographyH1({ children, className }: Children) {
   return (
     <h1
-      className={cn("text-4xl font-bold tracking-tight sm:text-7xl", className)}
+      className={cn(
+        "scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance",
+        className,
+      )}
     >
       {children}
     </h1>
@@ -30,7 +33,12 @@ function TypographyH1({ children, className }: Children) {
 
 function TypographyH2({ children, className }: Children) {
   return (
-    <h2 className={cn("text-xl font-bold sm:text-2xl", className)}>
+    <h2
+      className={cn(
+        "scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0",
+        className,
+      )}
+    >
       {children}
     </h2>
   );
@@ -39,7 +47,10 @@ function TypographyH2({ children, className }: Children) {
 function TypographyH3({ children, className }: Children) {
   return (
     <h3
-      className={cn("font-bold leading-none text-sm sm:text-base", className)}
+      className={cn(
+        "scroll-m-20 text-2xl font-semibold tracking-tight",
+        className,
+      )}
     >
       {children}
     </h3>
@@ -89,9 +100,7 @@ function TypographyInlineCode({ children, className }: Children) {
 
 function TypographyLead({ children, className }: Children) {
   return (
-    <p className={cn("text-muted-foreground text-lg sm:text-3xl", className)}>
-      {children}
-    </p>
+    <p className={cn("text-muted-foreground text-xl", className)}>{children}</p>
   );
 }
 
@@ -101,12 +110,7 @@ function TypographyLarge({ children, className }: Children) {
 
 function TypographySmall({ children, className }: Children) {
   return (
-    <p
-      className={cn(
-        "text-xs leading-none font-medium break-words sm:text-sm",
-        className,
-      )}
-    >
+    <p className={cn("text-sm leading-none font-medium", className)}>
       {children}
     </p>
   );
@@ -114,9 +118,7 @@ function TypographySmall({ children, className }: Children) {
 
 function TypographyMuted({ children, className }: Children) {
   return (
-    <p className={cn("text-muted-foreground text-xs sm:text-sm", className)}>
-      {children}
-    </p>
+    <p className={cn("text-muted-foreground text-sm", className)}>{children}</p>
   );
 }
 
