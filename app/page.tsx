@@ -1,11 +1,12 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Text } from "@/components/typography";
 import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
-    <div className="w-full mx-auto space-y-4 px-4">
-      <header className="w-full flex justify-between items-center py-4 px-8 text-primary">
+    <div className="w-full mx-auto space-y-4">
+      <header className="w-full flex justify-between items-center px-8 py-8 text-primary">
         <div>
           <Text variant="h2">Mitter</Text>
         </div>
@@ -38,8 +39,8 @@ export default function Home() {
         </div>
       </header>
 
-      <main>
-        <div
+      <main className="space-y-8">
+        <section
           id="hero"
           className="space-y-12 py-12 max-w-2xl mx-auto text-center"
         >
@@ -54,7 +55,7 @@ export default function Home() {
             countries.
           </Text>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 px-4">
             <Button variant="default" size="lg" className="py-8 px-16" asChild>
               <Link
                 href="/auth/signup"
@@ -87,9 +88,35 @@ export default function Home() {
               </Link>
             </Button>
           </div>
-        </div>
+        </section>
 
-        <div id="demo"></div>
+        <section
+          id="subhero"
+          className="bg-secondary relative justify-center px-4 py-4 sm:p-0"
+        >
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div className="relative shadow-2xl z-10 lg:translate-x-24">
+              <Image
+                src="/subhero-demo.png"
+                alt={"Mitter Demo"}
+                width={600}
+                height={400}
+                priority
+              />
+            </div>
+
+            <div className="rounded-2xl lg:-translate-x-12 ">
+              <Image
+                src="/subhero-person.png"
+                alt={"Mitter Asset"}
+                width={800}
+                height={600}
+                priority
+              />
+            </div>
+          </div>
+        </section>
+
         <div id="details"></div>
         <div id="paymitter"></div>
         <div id="cta"></div>
