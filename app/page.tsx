@@ -40,7 +40,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="w-full mx-auto space-y-4">
+    <div className="w-full mx-auto">
       <header className="flex justify-between items-center px-8 py-8 text-primary">
         <div>
           <Text variant="h2" className="border-none">
@@ -253,7 +253,7 @@ export default function Home() {
             id="cta"
             className="bg-primary flex flex-col items-center justify-center py-16 space-y-12"
           >
-            <div className="text-center max-w-4xl space-y-4">
+            <div className="text-center max-w-sm sm:max-w-3xl space-y-4">
               <Text variant="h2" className="text-white">
                 Ready to Access the African Market?
               </Text>
@@ -299,7 +299,11 @@ export default function Home() {
         </div>
       </main>
 
-      <footer></footer>
+      <footer className="py-8">
+        <Text variant="large" className="text-center text-muted-foreground">
+          &copy; {new Date().getFullYear()} Kaidora Labs. All rights reserved.
+        </Text>
+      </footer>
     </div>
   );
 }
