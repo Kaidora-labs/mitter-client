@@ -1,4 +1,4 @@
-import { Globe, Shield, Users, Zap } from "lucide-react";
+import { Globe, LogIn, Shield, Users, Zap } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Text } from "@/components/typography";
@@ -160,7 +160,7 @@ export default function Home() {
               How Mitter Works
             </Text>
 
-            <Text variant="small" className="text-center">
+            <Text variant="lead" className="text-center">
               We abstract away all the complexities so you can focus on your
               core business
             </Text>
@@ -199,57 +199,106 @@ export default function Home() {
           </div>
         </section>
 
-        <section
-          id="paymitter"
-          className="bg-secondary py-8 px-12 flex flex-col lg:flex-row items-start justify-center gap-12 sm:gap-24"
-        >
-          <Image
-            src="/paymitter-asset.png"
-            alt={"Paymitter Phone Mockup"}
-            width={600}
-            height={400}
-            priority
-          />
+        <div>
+          <section
+            id="paymitter"
+            className="bg-secondary py-8 px-12 flex flex-col lg:flex-row items-start justify-center gap-12 sm:gap-24"
+          >
+            <Image
+              src="/paymitter-asset.png"
+              alt={"Paymitter Phone Mockup"}
+              width={600}
+              height={400}
+              priority
+            />
 
-          <div className="bg-secondary flex flex-col items-start justify-start space-y-4 max-w-sm">
-            <div className="bg-white p-4 hidden sm:flex">
-              <Image
-                src="/qr-code.png"
-                alt={"Paymitter QR Code"}
-                width={48}
-                height={48}
-              />
+            <div className="bg-secondary flex flex-col items-start justify-start space-y-4 max-w-sm">
+              <div className="bg-white p-4 hidden sm:flex">
+                <Image
+                  src="/qr-code.png"
+                  alt={"Paymitter QR Code"}
+                  width={48}
+                  height={48}
+                />
+              </div>
+
+              <Text variant="h2" className="font-normal">
+                Mitter is the Backing Infrastructure of Paymitter
+              </Text>
+
+              <Text variant="lead">
+                Use your phones camera to scan and download the Permitter app
+                Available on iOS and Android
+              </Text>
+
+              <div className="flex items-center justify-start gap-4">
+                <Image
+                  src="/google-play-badge.png"
+                  alt={"Paymitter Google Play"}
+                  width={120}
+                  height={40}
+                />
+
+                <Image
+                  src="/apple-store-badge.svg"
+                  alt={"Paymitter Apple Store"}
+                  width={120}
+                  height={40}
+                />
+              </div>
+            </div>
+          </section>
+
+          <section
+            id="cta"
+            className="bg-primary flex flex-col items-center justify-center py-16 space-y-12"
+          >
+            <div className="text-center max-w-4xl space-y-4">
+              <Text variant="h2" className="text-white">
+                Ready to Access the African Market?
+              </Text>
+              <Text variant="lead" className="text-white">
+                Join Mitter today and focus on building your product while we
+                handle all the complexities of the African market.
+              </Text>
             </div>
 
-            <Text variant="h2" className="font-normal">
-              Mitter is the Backing Infrastructure of Paymitter
-            </Text>
+            <div className="flex flex-col sm:flex-row justify-center gap-4 px-4">
+              <Button
+                variant="outline"
+                size="lg"
+                className="py-8 px-16"
+                asChild
+              >
+                <Link
+                  href="/auth/signup"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Text
+                    variant="large"
+                    className="text-primary flex items-center"
+                  >
+                    Get Started
+                    <LogIn className="w-6 h-6 ml-4 text-primary" />
+                  </Text>
+                </Link>
+              </Button>
 
-            <Text variant="lead">
-              Use your phones camera to scan and download the Permitter app
-              Available on iOS and Android
-            </Text>
-
-            <div className="flex items-center justify-start gap-4">
-              <Image
-                src="/google-play-badge.png"
-                alt={"Paymitter Google Play"}
-                width={120}
-                height={40}
-              />
-
-              <Image
-                src="/apple-store-badge.svg"
-                alt={"Paymitter Apple Store"}
-                width={120}
-                height={40}
-              />
+              <Button
+                size="lg"
+                className="py-8 px-16 border-1 border-white hover:bg-primary/90"
+                asChild
+              >
+                <Link href="/pay" target="_blank" rel="noopener noreferrer">
+                  <Text variant="large">Pay a Merchant</Text>
+                </Link>
+              </Button>
             </div>
-          </div>
-        </section>
-
-        <section id="cta"></section>
+          </section>
+        </div>
       </main>
+
       <footer></footer>
     </div>
   );
