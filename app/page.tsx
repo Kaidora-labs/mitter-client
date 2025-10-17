@@ -41,9 +41,11 @@ export default function Home() {
 
   return (
     <div className="w-full mx-auto space-y-4">
-      <header className="w-full flex justify-between items-center px-8 py-8 text-primary">
+      <header className="flex justify-between items-center px-8 py-8 text-primary">
         <div>
-          <Text variant="h2">Mitter</Text>
+          <Text variant="h2" className="border-none">
+            Mitter
+          </Text>
         </div>
 
         <div className="space-x-8 hidden sm:inline-block">
@@ -77,7 +79,7 @@ export default function Home() {
       <main className="space-y-8">
         <section
           id="hero"
-          className="space-y-8 py-12 max-w-2xl mx-auto text-center"
+          className="space-y-8 py-12 px-4 max-w-2xl mx-auto text-center"
         >
           <Text variant="h1" className="sm:text-7xl font-bold">
             Your Gateway to the{" "}
@@ -152,7 +154,7 @@ export default function Home() {
           </div>
         </section>
 
-        <div id="details" className="space-y-12 p-8">
+        <section id="details" className="space-y-12 p-8">
           <div className="space-y-2">
             <Text variant="h2" className="text-center border-none">
               How Mitter Works
@@ -195,9 +197,58 @@ export default function Home() {
               );
             })}
           </div>
-        </div>
-        <div id="paymitter"></div>
-        <div id="cta"></div>
+        </section>
+
+        <section
+          id="paymitter"
+          className="bg-secondary py-8 px-12 flex flex-col lg:flex-row items-start justify-center gap-12 sm:gap-24"
+        >
+          <Image
+            src="/paymitter-asset.png"
+            alt={"Paymitter Phone Mockup"}
+            width={600}
+            height={400}
+            priority
+          />
+
+          <div className="bg-secondary flex flex-col items-start justify-start space-y-4 max-w-sm">
+            <div className="bg-white p-4 hidden sm:flex">
+              <Image
+                src="/qr-code.png"
+                alt={"Paymitter QR Code"}
+                width={48}
+                height={48}
+              />
+            </div>
+
+            <Text variant="h2" className="font-normal">
+              Mitter is the Backing Infrastructure of Paymitter
+            </Text>
+
+            <Text variant="lead">
+              Use your phones camera to scan and download the Permitter app
+              Available on iOS and Android
+            </Text>
+
+            <div className="flex items-center justify-start gap-4">
+              <Image
+                src="/google-play-badge.png"
+                alt={"Paymitter Google Play"}
+                width={120}
+                height={40}
+              />
+
+              <Image
+                src="/apple-store-badge.svg"
+                alt={"Paymitter Apple Store"}
+                width={120}
+                height={40}
+              />
+            </div>
+          </div>
+        </section>
+
+        <section id="cta"></section>
       </main>
       <footer></footer>
     </div>
