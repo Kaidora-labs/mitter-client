@@ -8,7 +8,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Mitter",
+  title: {
+    default: "Mitter",
+    template: `%s | Mitter`,
+  },
   description: "Your Gateway to the African Market",
 };
 
