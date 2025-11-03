@@ -42,11 +42,11 @@ export default function Home() {
   return (
     <div className="w-full mx-auto">
       <header className="flex justify-between items-center px-8 py-8 text-primary">
-        <div>
+        <Link href="/">
           <Text variant="h2" className="border-none">
             Mitter
           </Text>
-        </div>
+        </Link>
 
         <div className="space-x-8 hidden sm:inline-block">
           <Link
