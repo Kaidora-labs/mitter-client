@@ -1,5 +1,5 @@
 /** biome-ignore-all lint/a11y/useSemanticElements: External Package */
-/** biome-ignore-all lint/suspicious/noArrayIndexKey: <explanation> */
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: External Package */
 "use client";
 
 import { cva, type VariantProps } from "class-variance-authority";
