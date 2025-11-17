@@ -1,6 +1,8 @@
 import { cookies } from "next/headers";
 import { env } from "@/lib/env";
 import "server-only";
+import { ApiError } from "@/lib/errors";
+import type { Body, Result } from "@/lib/types";
 
 interface RequestConfig<T> {
   method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
@@ -9,11 +11,11 @@ interface RequestConfig<T> {
   headers?: never;
 }
 
-export async function apiRequest<D = unknown, R = unknown, E = Error>({
+export async function apiRequest<P = unknown, R = unknown>({
   url,
   method,
   params,
-}: RequestConfig<D>) {
+}: RequestConfig<P>): Promise<Result<R, ApiError>> {
   const body = JSON.stringify(params);
   const headers: HeadersInit = {
     "Content-Type": "application/json",
@@ -26,7 +28,7 @@ export async function apiRequest<D = unknown, R = unknown, E = Error>({
   const token = c.get("session")?.value;
 
   if (token) {
-    headers["Authorization"] = `Bearer ${token}`;
+    headers.Authorization = `Bearer ${token}`;
   }
 
   const init: RequestInit = {
@@ -36,13 +38,30 @@ export async function apiRequest<D = unknown, R = unknown, E = Error>({
   };
 
   const response = await fetch(`${env.NEXT_PUBLIC_API_URL}${url}`, init);
+  const value: Body<R> = await response.json();
 
   if (!response.ok) {
-    return new Error(response.statusText) as E;
+    return {
+      ok: false,
+      error: new ApiError({
+        message: value.error ?? response.statusText,
+      }),
+    };
   }
 
-  const data = (await response.json()) as R;
-  return data;
+  if (!value.data) {
+    return {
+      ok: false,
+      error: new ApiError({
+        message: value.error ?? "No data received",
+      }),
+    };
+  }
+
+  return {
+    ok: true,
+    data: value.data,
+  };
 }
 
 export const healthCheck = () => {

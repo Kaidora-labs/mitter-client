@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Text } from "@/components/typography";
 import { Button } from "@/components/ui/button";
 
-import type { User } from "@/types/user";
+import type { User } from "@/lib/types";
 
 type Props = {
   user?: User;

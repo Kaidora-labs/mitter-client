@@ -1,143 +1,129 @@
 "use client";
 
-import { useForm } from "@tanstack/react-form";
-import Link from "next/link";
-import type * as React from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import {
   Field,
+  FieldContent,
   FieldError,
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import { signin } from "../services/actions";
 
 const formSchema = z.object({
-  email: z.email("Not a valid email."),
+  emailAddress: z.email("Not a valid email."),
   password: z.string().min(8, { message: "Must be at least 8 characters" }),
   rememberMe: z.boolean(),
 });
 
 export default function SigninForm() {
-  const form = useForm({
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
+      emailAddress: "",
       password: "",
       rememberMe: false,
     },
-    validators: {
-      onSubmit: formSchema,
-    },
-
-    onSubmit: async ({ value }) => {
-      // TODO: Handle sign in logic here
-
-      toast("You submitted the following values:", {
-        description: (
-          <pre className="bg-code text-code-foreground mt-2 w-[320px] overflow-x-auto rounded-md p-4">
-            <code>{JSON.stringify(value, null, 2)}</code>
-          </pre>
-        ),
-        position: "bottom-right",
-        classNames: {
-          content: "flex flex-col gap-2",
-        },
-        style: {
-          "--border-radius": "calc(var(--radius)  + 4px)",
-        } as React.CSSProperties,
-      });
-    },
   });
 
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    console.debug(data);
+
+    const creds = {
+      emailAddress: data.emailAddress,
+      password: data.password,
+    };
+
+    const _ = await signin(creds);
+
+    toast("Event has been created", {
+      description: "Sunday, December 03, 2023 at 9:00 AM",
+      action: {
+        label: "Undo",
+        onClick: () => console.log("Undo"),
+      },
+    });
+  };
+
   return (
-    <form
-      id="signin-form"
-      onSubmit={(e) => {
-        e.preventDefault();
-        form.handleSubmit();
-      }}
-    >
+    <form id="signin-form" onSubmit={form.handleSubmit(onSubmit)}>
       <FieldGroup>
-        <form.Field
-          name="email"
-          children={(field) => {
-            const isInvalid =
-              field.state.meta.isTouched && !field.state.meta.isValid;
+        <Controller
+          name="emailAddress"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid} className="gap-2">
+              <FieldLabel htmlFor={field.name}>
+                Email Address <span className="text-red-500">*</span>
+              </FieldLabel>
 
-            return (
-              <Field data-invalid={isInvalid}>
-                <FieldLabel htmlFor={field.name}>Email Address</FieldLabel>
+              <Input
+                {...field}
+                id={field.name}
+                name={field.name}
+                aria-invalid={fieldState.invalid}
+                placeholder="johndoe@mail.com"
+              />
 
-                <Input
-                  id={field.name}
-                  name={field.name}
-                  value={field.state.value}
-                  onBlur={field.handleBlur}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  aria-invalid={isInvalid}
-                  placeholder="Email Address"
-                />
-
-                {isInvalid && <FieldError errors={field.state.meta.errors} />}
-              </Field>
-            );
-          }}
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
+          )}
         />
 
-        <form.Field
+        <Controller
           name="password"
-          children={(field) => {
-            const isInvalid =
-              field.state.meta.isTouched && !field.state.meta.isValid;
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid} className="gap-2">
+              <FieldLabel htmlFor={field.name}>
+                Password <span className="text-red-500">*</span>
+              </FieldLabel>
 
-            return (
-              <Field data-invalid={isInvalid}>
-                <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+              <Input
+                {...field}
+                id={field.name}
+                name={field.name}
+                aria-invalid={fieldState.invalid}
+                placeholder="Password"
+                type="password"
+              />
 
-                <Input
-                  id={field.name}
-                  name={field.name}
-                  value={field.state.value}
-                  onBlur={field.handleBlur}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  aria-invalid={isInvalid}
-                  placeholder="Password"
-                  type="password"
-                />
-
-                {isInvalid && <FieldError errors={field.state.meta.errors} />}
-              </Field>
-            );
-          }}
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
+          )}
         />
 
         <div className="flex justify-between items-center">
-          <form.Field
+          <Controller
             name="rememberMe"
-            children={(field) => {
-              return (
-                <Field orientation="horizontal">
-                  <Switch
-                    id="remember-me-switch"
-                    name={field.name}
-                    checked={field.state.value}
-                    onCheckedChange={field.handleChange}
-                  />
-                  Remember Me
-                </Field>
-              );
-            }}
-          />
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field orientation="horizontal" data-invalid={fieldState.invalid}>
+                <Switch
+                  id="remember-me-switch"
+                  name={field.name}
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                  aria-invalid={fieldState.invalid}
+                />
 
-          <Link
-            href="/auth/forgot-password"
-            className="text-primary w-full text-right"
-          >
-            Forgot your Password?
-          </Link>
+                <FieldContent>
+                  <FieldLabel htmlFor="form-rhf-switch-twoFactor">
+                    Remember Me
+                  </FieldLabel>
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </FieldContent>
+              </Field>
+            )}
+          />
         </div>
 
         <Button type="submit" className="w-full">
