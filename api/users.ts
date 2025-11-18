@@ -18,7 +18,7 @@ export type CreateUserResponse = {
 
 export const createUser = async (params: CreateUserParams) => {
   return apiRequest<CreateUserParams, CreateUserResponse>({
-    url: `/users/`,
+    url: `/users`,
     method: "POST",
     params,
   });
@@ -46,7 +46,7 @@ export type DeleteUserResponse = null;
 
 export const deleteUser = async (params: DeleteUserParams) => {
   return apiRequest<DeleteUserParams, DeleteUserResponse>({
-    url: `/users/`,
+    url: `/users`,
     method: "DELETE",
     params,
   });
